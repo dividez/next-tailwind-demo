@@ -1,3 +1,29 @@
+@import "tailwindcss";
+
 .prose {
-  @apply prose-blue max-w-none prose-headings:font-semibold prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl prose-p:text-base;
+  max-width: none;
+}
+
+.prose :where(h1, h2, h3, h4, h5, h6) {
+  font-weight: 600;
+}
+
+.prose :where(h1) {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.prose :where(h2) {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.prose :where(h3) {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.prose :where(p) {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }

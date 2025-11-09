@@ -61,3 +61,26 @@ export const seoConfig = {
 };
 
 export type SeoConfig = typeof seoConfig;
+
+export const testimonials = [
+  {
+    author: '张明',
+    role: '技术总监',
+    quote: '这个模板让我们的团队能够快速搭建专业的营销网站，同时保持了代码的可维护性。'
+  },
+  {
+    author: '李华',
+    role: '产品经理',
+    quote: 'SEO 优化做得很好，我们的网站在搜索引擎中的排名有了明显提升。'
+  },
+  {
+    author: '王芳',
+    role: '内容运营',
+    quote: '内容管理非常方便，非技术人员也能轻松更新网站内容。'
+  },
+  {
+    author: '刘强',
+    role: '前端开发',
+    quote: '代码结构清晰，性能优秀，是我们团队的首选模板。'
+  }
+];

@@ -49,7 +49,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           author: result.frontmatter.author
         }}
       />
-      <result.Component />
+      {result.content}
     </Container>
   );
 }
