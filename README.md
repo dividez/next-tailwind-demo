@@ -1,6 +1,6 @@
 # Next Tailwind Marketing Site
 
-一个基于 Next.js 14 与 Tailwind CSS 打造的营销官网模板，专注于极致 SEO、性能表现与内容友好度。项目采用 App Router、MDX 内容层与模块化组件结构，帮助团队快速上线高质量的品牌官网、博客与文档站点。
+一个基于 Next.js 16 与 Tailwind CSS 4 打造的营销官网模板，专注于极致 SEO、性能表现与内容友好度。项目采用 App Router、MDX 内容层与模块化组件结构，支持静态导出，帮助团队快速上线高质量的品牌官网、博客与文档站点。
 
 ## ✨ 特性
 
@@ -8,7 +8,7 @@
 - **性能卓越**：Tailwind 设计系统 + 可静态导出的 Next.js App Router。
 - **内容友好**：MDX 驱动的 Blog 与 Docs，可扩展对接 Headless CMS。
 - **解耦架构**：轻量 API（订阅、表单），与主应用彻底分离。
-- **工程保障**：ESLint、Prettier、Vitest、GitHub Actions CI 全面护航。
+- **工程保障**：TypeScript、Vitest、GitHub Actions CI 全面护航。
 
 ## 📁 目录结构
 
@@ -46,18 +46,13 @@ your-org-web/
    pnpm dev
    ```
 
-3. 代码质量检查
+3. 生产构建
 
    ```bash
-   pnpm lint
-   pnpm test
-   ```
-
-4. 生产构建
-
-   ```bash
+   # 构建静态文件（生成到 out/ 目录）
    pnpm build
-   pnpm start
+   # 或使用 export 命令（等同于 build）
+   pnpm export
    ```
 
 ## 🧩 内容工作流
@@ -76,9 +71,58 @@ NEXT_PUBLIC_ANALYTICS_ID=your-domain.com
 
 ## 📦 部署建议
 
-- 使用 `pnpm build`（如需静态导出可追加 `next export`）生成产物，托管到任意支持 CDN 的平台。
-- 保持 `public/robots.txt`、`public/sitemap.xml` 可用，确保 SEO 质量。
-- 推荐使用 GitHub Actions CI 作为合并前质量门槛。
+项目已配置为静态导出模式，构建后会生成纯静态 HTML 文件到 `out/` 目录，可直接部署到任何静态托管服务。
+
+### 构建静态文件
+
+```bash
+pnpm build
+# 或
+pnpm export
+```
+
+构建完成后，静态文件将生成在 `out/` 目录中。
+
+### 部署到静态托管平台
+
+#### Vercel（推荐）
+
+1. 将代码推送到 GitHub/GitLab/Bitbucket
+2. 在 [Vercel](https://vercel.com) 导入项目
+3. Vercel 会自动检测 Next.js 项目并配置部署
+4. 项目已配置静态导出，Vercel 会自动识别并部署 `out/` 目录
+
+#### Netlify
+
+1. 将代码推送到 Git 仓库
+2. 在 [Netlify](https://netlify.com) 创建新站点并连接仓库
+3. 构建设置：
+   - **Build command**: `pnpm build`
+   - **Publish directory**: `out`
+
+#### GitHub Pages
+
+1. 在 `package.json` 中添加部署脚本（可选）：
+   ```json
+   "scripts": {
+     "deploy": "pnpm build && gh-pages -d out"
+   }
+   ```
+2. 安装 `gh-pages`：`pnpm add -D gh-pages`
+3. 运行 `pnpm deploy`
+
+#### 传统服务器（Nginx/Apache）
+
+1. 运行 `pnpm build` 生成静态文件
+2. 将 `out/` 目录的内容复制到服务器的 web 根目录
+3. 配置服务器支持 SPA 路由（所有路由重定向到 `index.html`）
+
+### 注意事项
+
+- ✅ 所有页面都已静态化，包括动态路由（blog 和 docs 的 slug 页面）
+- ✅ `robots.txt` 和 `sitemap.xml` 会自动生成
+- ⚠️ API 路由（`/api/newsletter`）在静态导出时会被忽略，如需表单提交功能，请使用第三方服务（如 Formspree、Netlify Forms 等）
+- ⚠️ 图片已设置为未优化模式，适合静态托管
 
 ## 📝 许可证
 
